@@ -5,4 +5,6 @@ using Reexport
 
 include("models/univariate/JONSWAP.jl")
 
+export JONSWAP
+
 end
