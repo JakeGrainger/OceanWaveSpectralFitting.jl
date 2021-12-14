@@ -15,7 +15,7 @@ struct JONSWAP{K} <: WhittleLikelihoodInference.UnknownAcvTimeSeriesModel{1}
         ωₚ > 0 || throw(ArgumentError("JONSWAP requires ωₚ > 0"))
         γ > 1 || throw(ArgumentError("JONSWAP requires γ > 1"))
         r > 1 || throw(ArgumentError("JONSWAP requires r > 1"))
-        new(α,ωₚ,γ,r,r/4,ωₚ^2,ωₚ^3,ωₚ^4,ωₚ^6,log(γ))
+        new{K}(α,ωₚ,γ,r,r/4,ωₚ^2,ωₚ^3,ωₚ^4,ωₚ^6,log(γ))
     end
     function JONSWAP{K}(x::AbstractVector{Float64}) where {K}
         length(x) == npars(JONSWAP{K}) || throw(ArgumentError("JONSWAP process has $(npars(JONSWAP{K})) parameters, but $(length(x)) were provided."))
@@ -24,9 +24,9 @@ struct JONSWAP{K} <: WhittleLikelihoodInference.UnknownAcvTimeSeriesModel{1}
 end
 
 WhittleLikelihoodInference.npars(::Type{JONSWAP{K}}) where {K} = 4
-WhittleLikelihoodInference.nalias(::JONSWAP{K}) = K
+WhittleLikelihoodInference.nalias(::JONSWAP{K}) where {K} = K
 
-function WhittleLikelihoodInference.sdf(model::JONSWAP, ω::Real)
+function WhittleLikelihoodInference.sdf(model::JONSWAP{K}, ω::Real) where {K}
     α,ωₚ,γ,r = model.α,model.ωₚ,model.γ,model.r
     ω = abs(ω)
     if ω > 1e-10
@@ -39,7 +39,7 @@ function WhittleLikelihoodInference.sdf(model::JONSWAP, ω::Real)
     end
 end
 
-function grad_add_sdf!(out, model::JONSWAP, ω::Real)
+function grad_add_sdf!(out, model::JONSWAP{K}, ω::Real) where {K}
     α,ωₚ,γ,r = model.α,model.ωₚ,model.γ,model.r
     ω = abs(ω)
     if ω > 1e-10
@@ -63,7 +63,7 @@ function grad_add_sdf!(out, model::JONSWAP, ω::Real)
     return nothing
 end
 
-function hess_add_sdf!(out, model::JONSWAP, ω::Real)
+function hess_add_sdf!(out, model::JONSWAP{K}, ω::Real) where {K}
     α,ωₚ,γ,r = model.α,model.ωₚ,model.γ,model.r
     ω = abs(ω)
     if ω > 1e-10
@@ -74,7 +74,6 @@ function hess_add_sdf!(out, model::JONSWAP, ω::Real)
         ωₚ³_over_ω⁴ = model.ωₚ³ * ω⁻⁴
         sdf = (α * ω^(-r) * exp(-(r_over4) * ωₚ⁴_over_ω⁴) * γ^δ) / 2
         
-        ∂S∂α = sdf / α
         δωlogγ_over_σ1² = δ*model.logγ * ω / σ1²
         ∂S∂ωₚUsepart = (δ*model.logγ * ω / σ1² *(ω-ωₚ) / model.ωₚ³ - r*ωₚ³_over_ω⁴)
         ∂S∂ωₚ = sdf * ∂S∂ωₚUsepart

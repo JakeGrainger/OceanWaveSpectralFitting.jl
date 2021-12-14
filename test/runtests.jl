@@ -1,5 +1,6 @@
 using OceanWaveSpectralFitting
 using Test, FiniteDifferences
+import OceanWaveSpectralFitting: grad_sdf, hess_sdf, grad_acv, hess_acv
 
 ## define useful functions
 # Function for approximating the gradient using finite differences.
@@ -25,5 +26,5 @@ function approx_hessian_uni(grad, x)
 end
 
 @testset "OceanWaveSpectralFitting.jl" begin
-
+    include("models/univariate/JONSWAP_test.jl")
 end
