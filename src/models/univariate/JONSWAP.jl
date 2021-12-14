@@ -25,7 +25,7 @@ end
 
 # functions to throw informative error if type parameter not provided
 JONSWAP(x::AbstractVector{Float64}) = JONSWAP(1,1,1,1)
-JONSWAP(α,ωₚ,γ,r) = throw(MethodError("JONSWAP process requires the ammount of aliasing specified as a type parameter. Use JONSWAP{K}() where K ∈ N."))
+JONSWAP(α,ωₚ,γ,r) = error("JONSWAP process requires the ammount of aliasing specified as a type parameter. Use JONSWAP{K}() where K ∈ N.")
 
 WhittleLikelihoodInference.npars(::Type{JONSWAP{K}}) where {K} = 4
 WhittleLikelihoodInference.nalias(::JONSWAP{K}) where {K} = K
