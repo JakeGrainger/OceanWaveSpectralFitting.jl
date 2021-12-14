@@ -1,0 +1,13 @@
+name = "OceanWaveSpectralFitting"
+uuid = "a44e4c57-a566-426a-9563-b0c20c24dda1"
+authors = ["Jake Grainger <j.p.grainger2@outlook.com> and contributors"]
+version = "0.1.0"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[compat]
+julia = "1"
+
+[targets]
+test = ["Test"]
