@@ -3,12 +3,16 @@ uuid = "a44e4c57-a566-426a-9563-b0c20c24dda1"
 authors = ["Jake Grainger <j.p.grainger2@outlook.com>"]
 version = "0.1.0"
 
-[extras]
-Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
-FiniteDifferences = "26cc04aa-876d-5657-8c51-4c34ba976000"
+[deps]
+Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
+WhittleLikelihoodInference = "3fdf5847-2998-4bb9-885b-ec39b41f41a6"
 
 [compat]
 julia = "1"
 
+[extras]
+FiniteDifferences = "26cc04aa-876d-5657-8c51-4c34ba976000"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
 [targets]
-test = ["Test","FiniteDifferences"]
+test = ["Test", "FiniteDifferences"]

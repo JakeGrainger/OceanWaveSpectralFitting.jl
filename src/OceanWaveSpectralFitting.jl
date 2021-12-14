@@ -1,7 +1,8 @@
 module OceanWaveSpectralFitting
 
-using WhittleLikelihoodInference
+using Reexport
+@reexport using WhittleLikelihoodInference
 
-include("models/JONSWAP.jl")
+include("models/univariate/JONSWAP.jl")
 
 end
