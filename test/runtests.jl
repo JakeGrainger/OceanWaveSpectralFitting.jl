@@ -1,6 +1,6 @@
 using OceanWaveSpectralFitting
 using Test, FiniteDifferences
-import OceanWaveSpectralFitting: grad_sdf, hess_sdf, grad_acv, hess_acv
+import OceanWaveSpectralFitting.WhittleLikelihoodInference: grad_sdf, hess_sdf, grad_acv, hess_acv
 
 ## define useful functions
 # Function for approximating the gradient using finite differences.
