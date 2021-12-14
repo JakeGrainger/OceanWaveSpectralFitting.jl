@@ -37,7 +37,7 @@ function WhittleLikelihoodInference.sdf(model::JONSWAP{K}, ω::Real) where {K}
         σ1² = 0.0049 + 0.0032 * (ω > ωₚ)
         δ = exp(-1 / (2σ1²) * (ω / ωₚ - 1)^2)
         ωₚ⁴_over_ω⁴ = model.ωₚ⁴ / (ω^4)
-        return (α * ω^(-r) * exp(-(r_over4) * ωₚ⁴_over_ω⁴) * γ^δ) / 2
+        return (α * ω^(-r) * exp(-(model.r_over4) * ωₚ⁴_over_ω⁴) * γ^δ) / 2
     else
         return 0.0
     end
@@ -51,7 +51,7 @@ function WhittleLikelihoodInference.grad_add_sdf!(out, model::JONSWAP{K}, ω::Re
         δ = exp(-1 / (2σ1²) * (ω / ωₚ - 1)^2)
         ω⁻⁴ = ω^(-4)
         ωₚ⁴_over_ω⁴ = model.ωₚ⁴ * ω⁻⁴
-        sdf = (α * ω^(-r) * exp(-(r_over4) * ωₚ⁴_over_ω⁴) * γ^δ) / 2
+        sdf = (α * ω^(-r) * exp(-(model.r_over4) * ωₚ⁴_over_ω⁴) * γ^δ) / 2
         
         ∂S∂α = sdf / α
         ∂S∂ωₚ = sdf * (δ*model.logγ * ω / σ1² *(ω-ωₚ) / model.ωₚ³ - r*model.ωₚ³*ω⁻⁴)
@@ -76,7 +76,7 @@ function WhittleLikelihoodInference.hess_add_sdf!(out, model::JONSWAP{K}, ω::Re
         ω⁻⁴ = ω^(-4)
         ωₚ⁴_over_ω⁴ = model.ωₚ⁴ * ω⁻⁴
         ωₚ³_over_ω⁴ = model.ωₚ³ * ω⁻⁴
-        sdf = (α * ω^(-r) * exp(-(r_over4) * ωₚ⁴_over_ω⁴) * γ^δ) / 2
+        sdf = (α * ω^(-r) * exp(-(model.r_over4) * ωₚ⁴_over_ω⁴) * γ^δ) / 2
         
         δωlogγ_over_σ1² = δ*model.logγ * ω / σ1²
         ∂S∂ωₚUsepart = (δ*model.logγ * ω / σ1² *(ω-ωₚ) / model.ωₚ³ - r*ωₚ³_over_ω⁴)
