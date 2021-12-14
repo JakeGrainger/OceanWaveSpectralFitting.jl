@@ -91,8 +91,9 @@ function WhittleLikelihoodInference.hess_add_sdf!(out, model::JONSWAP{K}, ω::Re
         ∂S∂αr = ∂S∂r / α
         
         ∂S∂ωₚ2 = ∂S∂ωₚ * ∂S∂ωₚUsepart + sdf * (δωlogγ_over_σ1² *((-3ω + 2ωₚ)/model.ωₚ⁴ + ω * (ω-ωₚ)^2/model.ωₚ⁶/σ1²) - 3r*model.ωₚ²*ω⁻⁴)
-        ∂S∂ωₚγ = ∂S∂γ * ∂S∂ωₚUsepart + sdf * δ / γ * ω / σ1²*(ω-ωₚ)/model.ωₚ³
+        ∂S∂ωₚγ = ∂S∂γ * ∂S∂ωₚUsepart + sdf * δ_over_γ * ω / σ1²*(ω-ωₚ)/model.ωₚ³
         ∂S∂ωₚr = ∂S∂r * ∂S∂ωₚUsepart - sdf * model.ωₚ³*ω⁻⁴
+        ∂S∂γ2 = δ_over_γ * (∂S∂γ - sdf/γ)
         ∂S∂γr = ∂S∂r * δ_over_γ
         ∂S∂r2 = ∂S∂r * ∂r_part
 
