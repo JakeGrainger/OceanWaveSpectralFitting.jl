@@ -1,5 +1,5 @@
 module OceanWaveSpectralFitting
 
-# Write your package code here.
+using WhittleLikelihoodInference
 
 end
