@@ -23,6 +23,10 @@ struct JONSWAP{K} <: WhittleLikelihoodInference.UnknownAcvTimeSeriesModel{1}
     end
 end
 
+# functions to throw informative error if type parameter not provided
+JONSWAP(x::AbstractVector{Float64}) = JONSWAP(1,1,1,1)
+JONSWAP(α,ωₚ,γ,r) = throw(MethodError("JONSWAP process requires the ammount of aliasing specified as a type parameter. Use JONSWAP{K}() where K ∈ N."))
+
 WhittleLikelihoodInference.npars(::Type{JONSWAP{K}}) where {K} = 4
 WhittleLikelihoodInference.nalias(::JONSWAP{K}) where {K} = K
 
@@ -39,7 +43,7 @@ function WhittleLikelihoodInference.sdf(model::JONSWAP{K}, ω::Real) where {K}
     end
 end
 
-function grad_add_sdf!(out, model::JONSWAP{K}, ω::Real) where {K}
+function WhittleLikelihoodInference.grad_add_sdf!(out, model::JONSWAP{K}, ω::Real) where {K}
     α,ωₚ,γ,r = model.α,model.ωₚ,model.γ,model.r
     ω = abs(ω)
     if ω > 1e-10
@@ -63,7 +67,7 @@ function grad_add_sdf!(out, model::JONSWAP{K}, ω::Real) where {K}
     return nothing
 end
 
-function hess_add_sdf!(out, model::JONSWAP{K}, ω::Real) where {K}
+function WhittleLikelihoodInference.hess_add_sdf!(out, model::JONSWAP{K}, ω::Real) where {K}
     α,ωₚ,γ,r = model.α,model.ωₚ,model.γ,model.r
     ω = abs(ω)
     if ω > 1e-10
