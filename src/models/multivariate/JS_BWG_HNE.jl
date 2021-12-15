@@ -42,7 +42,7 @@ end
 
 # functions to throw informative error if type parameter not provided
 JS_BWG_HNE(x::AbstractVector{Float64}) = JS_BWG_HNE(ones(9)...)
-JS_BWG_HNE(α,ωₚ,γ,r,ϕₘ,β,ν,σₗ,σᵣ) = error("JS_BWG_HNE process requires the ammount of aliasing specified as a type parameter. Use JS_BWG_HNE{K}() where K ∈ N.")
+JS_BWG_HNE(α,ωₚ,γ,r,ϕₘ,β,ν,σₗ,σᵣ) = error("JS_BWG_HNE process requires the ammount of aliasing specified as a type parameter. Use JS_BWG_HNE{K}() where K ∈ N₀.")
 
 WhittleLikelihoodInference.npars(::Type{JS_BWG_HNE{K}}) where {K} = 9
 WhittleLikelihoodInference.nalias(::JS_BWG_HNE{K}) where {K} = K
