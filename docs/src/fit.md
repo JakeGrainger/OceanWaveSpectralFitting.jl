@@ -1,5 +1,5 @@
 # Fitting
 
-```@doc
+```@docs
 fit
 ```

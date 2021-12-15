@@ -7,5 +7,5 @@ The [*OceanWaveSpectralFitting*](https://github.com/JakeGrainger/OceanWaveSpectr
 
 Includes the following models:
 - **JONSWAP**: the JONSWAP spectra for vertical displacement,
-- **JS_BWG_HNE**: a model for the heave, northwards and eastwards displacement of a partical on the water surface when the waves have a JONSWAP marginal spectral density function and bimodal wrapped Gaussian spreading function.
-- **JS_BWG_HNE_DL**: a depth limited version of **JS_BWG_HNE**.
+- **JS\_BWG\_HNE**: a model for the heave, northwards and eastwards displacement of a partical on the water surface when the waves have a JONSWAP marginal spectral density function and bimodal wrapped Gaussian spreading function.
+- **JS\_BWG\_HNE\_DL**: a depth limited version of **JS\_BWG\_HNE**.
