@@ -1,4 +1,3 @@
-import OceanWaveSpectralFitting: fit
 @testset "fit" begin
     θ = [0.7,0.8,3.3,5.0]
     @testset "Error handling" begin
