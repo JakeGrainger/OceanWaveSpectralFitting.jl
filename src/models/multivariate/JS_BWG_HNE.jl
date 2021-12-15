@@ -61,8 +61,8 @@ function WhittleLikelihoodInference.add_sdf!(out, model::JS_BWG_HNE{K}, ω::Real
         ωₚ⁴_over_ω⁴ = model.ωₚ⁴ * ω⁻⁴
         sdf = (α * ω^(-r) * exp(-(model.r_over4) * ωₚ⁴_over_ω⁴) * γ^δ) / 2
         
-        PeakSep = β / exp(ν * ((ω > ωₚ)*((ωₚ / ω) - 1.0) + 1.0))
-        σ = σₗ - model.σᵣ_over3*(4*(ω_over_ωₚ)^2 - (ωₚ⁴_over_ω⁴)^2)
+        PeakSep = β / exp(ν * ((ω > ωₚ)*((1/ω_over_ωₚ) - 1.0) + 1.0))
+        σ = σₗ - model.σᵣ_over3*(4*(1/ω_over_ωₚ)^2 - (ωₚ⁴_over_ω⁴)^2)
         σ² = σ^2
 
         cosPS = cos(PeakSep)
@@ -89,8 +89,8 @@ function WhittleLikelihoodInference.grad_add_sdf!(out, model::JS_BWG_HNE{K}, ω:
         α,ωₚ,γ,r,ϕₘ,β,ν,σₗ,σᵣ = model.α,model.ωₚ,model.γ,model.r,model.ϕₘ,model.β,model.ν,model.σₗ,model.σᵣ
         
         σ1² = 0.0049 + 0.0032 * (ω > ωₚ)
-        δ = exp(-1 / (2σ1²) * (ω / ωₚ - 1)^2)
         ω_over_ωₚ = ω / ωₚ
+        δ = exp(-1 / (2σ1²) * (ω_over_ωₚ - 1)^2)
         ω⁻⁴ = ω^(-4)
         ωₚ⁴_over_ω⁴ = model.ωₚ⁴ * ω⁻⁴
         sdf = (α * ω^(-r) * exp(-(model.r_over4) * ωₚ⁴_over_ω⁴) * γ^δ) / 2
@@ -100,8 +100,8 @@ function WhittleLikelihoodInference.grad_add_sdf!(out, model::JS_BWG_HNE{K}, ω:
         ∂S∂γ = sdf * δ / γ
         ∂S∂r = sdf * (-log(ω)-ωₚ⁴_over_ω⁴/4)
         
-        PeakSep = β / exp(ν * ((ω > ωₚ)*((ωₚ / ω) - 1.0) + 1.0))
-        σ = σₗ - model.σᵣ_over3*(4*(ω_over_ωₚ)^2 - (ωₚ⁴_over_ω⁴)^2)
+        PeakSep = β / exp(ν * ((ω > ωₚ)*((1/ω_over_ωₚ) - 1.0) + 1.0))
+        σ = σₗ - model.σᵣ_over3*(4*(1/ω_over_ωₚ)^2 - (ωₚ⁴_over_ω⁴)^2)
         σ² = σ^2
 
         cosϕₘ = model.cosϕₘ
