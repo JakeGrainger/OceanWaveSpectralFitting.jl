@@ -35,8 +35,8 @@ function fit(ts::WhittleLikelihoodInference.TimeSeries;model::Type{<:TimeSeriesM
     fit(ts.ts,ts.Δ,model=model,x₀=x₀,lowerΩcutoff=lowerΩcutoff,upperΩcutoff=upperΩcutoff,
     x_lowerbounds=x_lowerbounds,x_upperbounds=x_upperbounds,method=method,taper=taper)
 end
-maketaper(::Nothing,n) = nothing
-maketaper(taper::Symbol,n) = maketaper(String(taper))
+maketaper(taper::Nothing,n) = nothing
+maketaper(taper::Symbol,n) = maketaper(String(taper),n)
 function maketaper(taper::String,n)
     tapername, nw = split(taper,'_')
     tapername == "dpss" || throw(ArgumentError("Taper should be nothing or dpss_nw where nw is the value of nw used for the taper. Other kinds of tapering are not yet supported."))
