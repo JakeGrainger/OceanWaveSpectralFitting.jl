@@ -90,6 +90,7 @@ function WhittleLikelihoodInference.grad_add_sdf!(out, model::JS_BWG_HNE{K}, ω:
         
         σ1² = 0.0049 + 0.0032 * (ω > ωₚ)
         δ = exp(-1 / (2σ1²) * (ω / ωₚ - 1)^2)
+        ω_over_ωₚ = ω / ωₚ
         ω⁻⁴ = ω^(-4)
         ωₚ⁴_over_ω⁴ = model.ωₚ⁴ * ω⁻⁴
         sdf = (α * ω^(-r) * exp(-(model.r_over4) * ωₚ⁴_over_ω⁴) * γ^δ) / 2
