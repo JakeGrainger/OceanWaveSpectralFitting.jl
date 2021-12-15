@@ -9,6 +9,8 @@ using OceanWaveSpectralFitting
 
 As a basic example, consider a univariate Gaussian process with JONSWAP spectral density function. We can simulate such a process with the following:
 ```@example
+import Random # hide
+Random.seed!(1234) # hide
 using OceanWaveSpectralFitting # hide
 n = 2304
 Δ = 1/1.28
@@ -24,6 +26,8 @@ The function `simulate_gp` will simulate a vector of `nreps` series, which is wh
 
 We can now fit a model with the following:
 ```@example
+import Random # hide
+Random.seed!(1234) # hide
 using OceanWaveSpectralFitting # hide
 n = 2304 # hide
 Δ = 1/1.28 # hide
@@ -36,9 +40,30 @@ ts = simulate_gp(JONSWAP{1}(α,ωₚ,γ,r),n,Δ,nreps)[1] # hide
 x₀ = [α,ωₚ,γ,r] .+ 0.1
 res = fit(ts,model=JONSWAP{1},x₀=x₀)
 ```
-Here `x₀` is the vector of initial parameter guesses. The full example is
+Here `x₀` is the vector of initial parameter guesses. 
+The estimated parameter vector can be recovered by doing:
+```@example
+import Random # hide
+Random.seed!(1234) # hide
+using OceanWaveSpectralFitting # hide
+n = 2304 # hide
+Δ = 1/1.28 # hide
+nreps = 1 # hide
+α = 0.7 # hide
+ωₚ = 1.1 # hide
+γ = 3.3 # hide
+r = 5.0 # hide
+ts = simulate_gp(JONSWAP{1}(α,ωₚ,γ,r),n,Δ,nreps)[1] # hide
+x₀ = [α,ωₚ,γ,r] .+ 0.1 # hide
+res = fit(ts,model=JONSWAP{1},x₀=x₀) # hide
+x̂ = res.minimizer
+```
+
+The full example is:
 
 ```@example
+import Random # hide
+Random.seed!(1234) # hide
 using OceanWaveSpectralFitting
 n = 2304
 Δ = 1/1.28
@@ -50,6 +75,7 @@ r = 5.0
 ts = simulate_gp(JONSWAP{1}(α,ωₚ,γ,r),n,Δ,nreps)[1]
 x₀ = [α,ωₚ,γ,r] .+ 0.1
 res = fit(ts,model=JONSWAP{1},x₀=x₀)
+x̂ = res.minimizer
 ```
 
 For more options, see below:
