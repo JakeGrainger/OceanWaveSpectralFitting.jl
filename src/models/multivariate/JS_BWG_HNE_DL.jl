@@ -59,8 +59,8 @@ JS_BWG_HNE_DL(α,ωₚ,γ,r,ϕₘ,β,ν,σₗ,σᵣ) = error("JS_BWG_HNE_DL proc
 WhittleLikelihoodInference.npars(::Type{JS_BWG_HNE_DL{K,H}}) where {K,H} = 9
 WhittleLikelihoodInference.nalias(::JS_BWG_HNE_DL{K,H}) where {K,H} = K
 
-lowerbounds(::Type{JS_BWG_HNE_DL{K,H}}) where {K,H} = (0,0,1,1,-Inf,0,0,0,0)
-upperbounds(::Type{JS_BWG_HNE_DL{K,H}}) where {K,H} = (Inf,Inf,Inf,Inf,Inf,Inf,Inf,Inf,Inf)
+lowerbounds(::Type{JS_BWG_HNE_DL{K,H}}) where {K,H} = [0,0,1,1,-Inf,0,0,0,0]
+upperbounds(::Type{JS_BWG_HNE_DL{K,H}}) where {K,H} = [Inf,Inf,Inf,Inf,Inf,Inf,Inf,Inf,Inf]
 
 function approx_dispersion(ω, h)
     g = 9.81
