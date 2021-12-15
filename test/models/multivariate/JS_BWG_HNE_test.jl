@@ -23,6 +23,10 @@
         @test approx_hessian( θ -> grad_sdf(JS_BWG_HNE{1}(θ), ω), θ₀) ≈ hess_sdf(JS_BWG_HNE{1}(θ₀), ω)
         @test approx_hessian( θ -> grad_sdf(JS_BWG_HNE{1}(θ), 0), θ₀) ≈ hess_sdf(JS_BWG_HNE{1}(θ₀), 0)
     end
+    @testset "coherancy" begin
+        S = sdf(JS_BWG_HNE{1}(θ₀), ω)
+        @test coherancy(JS_BWG_HNE{1}(θ₀), ω) ≈ [S[i,j]/sqrt(S[i,i]*S[j,j]) for i in 1:size(S,1), j in 1:size(S,2)]
+    end
     @testset "Error handling" begin
         @test_throws ArgumentError JS_BWG_HNE{1}(-0.7,0.9, 3.3, 5.0, 0, 4, 2.7, 0.55, 0.26)
         @test_throws ArgumentError JS_BWG_HNE{1}(0.7,-0.9, 3.3, 5.0, 0, 4, 2.7, 0.55, 0.26)

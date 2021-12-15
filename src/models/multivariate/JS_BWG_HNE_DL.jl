@@ -990,7 +990,7 @@ function WhittleLikelihoodInference.hess_add_sdf!(out, model::JS_BWG_HNE_DL{K,H}
     return nothing
 end
 
-function WhittleLikelihoodInference.coherancy(model::JS_BWG_HNE_DL, ω::T) where {T<:Real}
+function WhittleLikelihoodInference.coherancy(model::JS_BWG_HNE_DL{K,H}, ω::Real) where {K,H}
     s_om = sign(ω)
     ω = abs(ω)
     α,ωₚ,γ,r,ϕₘ,β,ν,σₗ,σᵣ = model.α,model.ωₚ,model.γ,model.r,model.ϕₘ,model.β,model.ν,model.σₗ,model.σᵣ
@@ -1011,11 +1011,11 @@ function WhittleLikelihoodInference.coherancy(model::JS_BWG_HNE_DL, ω::T) where
     out = zeros(ComplexF64, 6)
 
     out[1] = 1
-    out[2] = imexppart * cosϕₘ / sqrt(0.5 + cos2part)
-    out[3] = imexppart * sinϕₘ / sqrt(0.5 - cos2part)
+    out[2] = imexppart * model.cosϕₘ / sqrt(0.5 + cos2part)
+    out[3] = imexppart * model.sinϕₘ / sqrt(0.5 - cos2part)
     out[4] = 1
-    out[5] = sin2ϕₘ * cosPS / exp2part / sqrt(0.5 + cos2part) / sqrt(0.5 - cos2part)
+    out[5] = model.sin2ϕₘ * cosPS / exp2part / sqrt(0.5 + cos2part) / sqrt(0.5 - cos2part)
     out[6] = 1
 
-    return SHermitianCompact{3, ComplexF64, 6}(out)
+    return WhittleLikelihoodInference.SHermitianCompact{3, ComplexF64, 6}(out)
 end
