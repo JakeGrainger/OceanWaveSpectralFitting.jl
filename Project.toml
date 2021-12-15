@@ -10,7 +10,11 @@ Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
 WhittleLikelihoodInference = "3fdf5847-2998-4bb9-885b-ec39b41f41a6"
 
 [compat]
-julia = "1"
+DSP = "0.7"
+Optim = "1.5"
+Reexport = "1.2"
+WhittleLikelihoodInference = "0.1"
+julia = "1.6"
 
 [extras]
 FiniteDifferences = "26cc04aa-876d-5657-8c51-4c34ba976000"
