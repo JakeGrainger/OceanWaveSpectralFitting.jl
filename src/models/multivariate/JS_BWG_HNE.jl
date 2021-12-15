@@ -47,7 +47,7 @@ JS_BWG_HNE(α,ωₚ,γ,r,ϕₘ,β,ν,σₗ,σᵣ) = error("JS_BWG_HNE process re
 WhittleLikelihoodInference.npars(::Type{JS_BWG_HNE{K}}) where {K} = 9
 WhittleLikelihoodInference.nalias(::JS_BWG_HNE{K}) where {K} = K
 
-function add_sdf!(out, model::JS_BWG_HNE{K}, ω::Real) where {K}
+function WhittleLikelihoodInference.add_sdf!(out, model::JS_BWG_HNE{K}, ω::Real) where {K}
     s_om = sign(ω)
     ω = abs(ω)
 
@@ -81,7 +81,7 @@ function add_sdf!(out, model::JS_BWG_HNE{K}, ω::Real) where {K}
     return nothing
 end
 
-function grad_add_sdf!(out, model::JS_BWG_HNE{K}, ω::Real) where {K}
+function WhittleLikelihoodInference.grad_add_sdf!(out, model::JS_BWG_HNE{K}, ω::Real) where {K}
     s_om = sign(ω)
     ω = abs(ω)
     
