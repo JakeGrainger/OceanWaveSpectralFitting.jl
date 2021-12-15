@@ -900,56 +900,56 @@ function WhittleLikelihoodInference.hess_add_sdf!(out, model::JS_BWG_HNE_DL{K,H}
         ## ϕₘσᵣ
         # out[1, 35] += 0
         out[2, 35] += sdf * hxz∂ϕₘ∂σᵣ / tanhkh
-        out[3, 35] += sdf * hyz∂ϕₘ/ tanhkh
-        out[4, 35] += sdf * hxx∂ϕₘ/ tanhkh²
+        out[3, 35] += sdf * hyz∂ϕₘ∂σᵣ / tanhkh
+        out[4, 35] += sdf * hxx∂ϕₘ∂σᵣ / tanhkh²
         out[5, 35] += sdf * hyx∂ϕₘ∂σᵣ / tanhkh²
         out[6, 35] += sdf * -hxx∂ϕₘ∂σᵣ / tanhkh²
 
         ## β2
         # out[1, 36] += 0
         out[2, 36] += sdf * hxz∂β2 / tanhkh
-        out[3, 36] += sdf * hyz∂/ tanhkh
-        out[4, 36] += sdf * hxx∂/ tanhkh²
+        out[3, 36] += sdf * hyz∂β2 / tanhkh
+        out[4, 36] += sdf * hxx∂β2 / tanhkh²
         out[5, 36] += sdf * hyx∂β2 / tanhkh²
         out[6, 36] += sdf * -hxx∂β2 / tanhkh²
 
         ## βν
         # out[1, 37] += 0
         out[2, 37] += sdf * hxz∂β∂ν / tanhkh
-        out[3, 37] += sdf * hyz∂β/ tanhkh
-        out[4, 37] += sdf * hxx∂β/ tanhkh²
+        out[3, 37] += sdf * hyz∂β∂ν / tanhkh
+        out[4, 37] += sdf * hxx∂β∂ν / tanhkh²
         out[5, 37] += sdf * hyx∂β∂ν / tanhkh²
         out[6, 37] += sdf * -hxx∂β∂ν / tanhkh²
 
         ## βσₗ
         # out[1, 38] += 0
         out[2, 38] += sdf * hxz∂β∂σₗ / tanhkh
-        out[3, 38] += sdf * hyz∂β∂/ tanhkh
-        out[4, 38] += sdf * hxx∂β∂/ tanhkh²
+        out[3, 38] += sdf * hyz∂β∂σₗ / tanhkh
+        out[4, 38] += sdf * hxx∂β∂σₗ / tanhkh²
         out[5, 38] += sdf * hyx∂β∂σₗ / tanhkh²
         out[6, 38] += sdf * -hxx∂β∂σₗ / tanhkh²
 
         ## βσᵣ
         # out[1, 39] += 0
         out[2, 39] += sdf * hxz∂β∂σᵣ / tanhkh
-        out[3, 39] += sdf * hyz∂β∂/ tanhkh
-        out[4, 39] += sdf * hxx∂β∂/ tanhkh²
+        out[3, 39] += sdf * hyz∂β∂σᵣ / tanhkh
+        out[4, 39] += sdf * hxx∂β∂σᵣ / tanhkh²
         out[5, 39] += sdf * hyx∂β∂σᵣ / tanhkh²
         out[6, 39] += sdf * -hxx∂β∂σᵣ / tanhkh²
 
         ## ν2
         # out[1, 40] += 0
         out[2, 40] += sdf * hxz∂ν2 / tanhkh
-        out[3, 40] += sdf * hyz∂ν/ tanhkh
-        out[4, 40] += sdf * hxx∂ν/ tanhkh²
+        out[3, 40] += sdf * hyz∂ν2 / tanhkh
+        out[4, 40] += sdf * hxx∂ν2 / tanhkh²
         out[5, 40] += sdf * hyx∂ν2 / tanhkh²
         out[6, 40] += sdf * -hxx∂ν2 / tanhkh²
 
         ## νσₗ
         # out[1, 41] += 0
         out[2, 41] += sdf * hxz∂ν∂σₗ / tanhkh
-        out[3, 41] += sdf * hyz∂ν∂σₗ/ tanhkh
-        out[4, 41] += sdf * hxx∂ν∂σₗ/ tanhkh²
+        out[3, 41] += sdf * hyz∂ν∂σₗ / tanhkh
+        out[4, 41] += sdf * hxx∂ν∂σₗ / tanhkh²
         out[5, 41] += sdf * hyx∂ν∂σₗ / tanhkh²
         out[6, 41] += sdf * -hxx∂ν∂σₗ / tanhkh²
 
