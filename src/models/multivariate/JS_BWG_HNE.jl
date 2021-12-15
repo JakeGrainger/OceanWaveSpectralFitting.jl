@@ -1,4 +1,4 @@
-@docs raw"""
+@doc raw"""
     JS_BWG_HNE{K}(α,ωₚ,γ,r,ϕₘ,β,ν,σₗ,σᵣ)
     JS_BWG_HNE{K}(x)
 
@@ -41,7 +41,7 @@ where
 ```
 The bimodal wrapped Gaussian spreading function is 
 ```math
-D(ω,ϕ) = \frac{1}{2\sigma(ω)\sqrt{2π}}\sum\limits_{k=-∞}^{∞} \sum\limits_{i=1}^{2} \exp\left\{-\frac{1}{2}\left(\frac{ϕ-ϕ_{mi}(ω)-2\pi k}{σ(ω)}\right)^2\right\}
+D(ω,ϕ) = \frac{1}{2σ(ω)\sqrt{2π}}\sum\limits_{k=-∞}^{∞} \sum\limits_{i=1}^{2} \exp\left\{-\frac{1}{2}\left(\frac{ϕ-ϕ_{mi}(ω)-2\pi k}{σ(ω)}\right)^2\right\}
 ```
 where
 ```math

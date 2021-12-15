@@ -1,4 +1,4 @@
-@docs raw"""
+@doc raw"""
     JONSWAP{K}(α,ωₚ,γ,r)
     JONSWAP{K}(x)
 
