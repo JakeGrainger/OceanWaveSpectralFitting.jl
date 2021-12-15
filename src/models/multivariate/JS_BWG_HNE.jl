@@ -102,6 +102,9 @@ JS_BWG_HNE(α,ωₚ,γ,r,ϕₘ,β,ν,σₗ,σᵣ) = error("JS_BWG_HNE process re
 WhittleLikelihoodInference.npars(::Type{JS_BWG_HNE{K}}) where {K} = 9
 WhittleLikelihoodInference.nalias(::JS_BWG_HNE{K}) where {K} = K
 
+lowerbounds(::Type{JS_BWG_HNE{K}}) where {K} = (0,0,1,1,-Inf,0,0,0,0)
+upperbounds(::Type{JS_BWG_HNE{K}}) where {K} = (Inf,Inf,Inf,Inf,Inf,Inf,Inf,Inf,Inf)
+
 function WhittleLikelihoodInference.add_sdf!(out, model::JS_BWG_HNE{K}, ω::Real) where {K}
     s_om = sign(ω)
     ω = abs(ω)
