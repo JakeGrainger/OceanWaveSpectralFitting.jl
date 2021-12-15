@@ -45,11 +45,11 @@ D(ω,ϕ) = \frac{1}{2σ(ω)\sqrt{2π}}\sum\limits_{k=-∞}^{∞} \sum\limits_{i=
 ```
 where
 ```math
-\begin{align}
+\begin{align*}
     ϕ_{m1}(ω) &= ϕ_m + β \exp\{-ν \min(ω_p/|ω|,1)\}/2 \\
     ϕ_{m2}(ω) &= ϕ_m - β \exp\{-ν \min(ω_p/|ω|,1)\}/2 \\
     σ(ω) &= σ_l - \frac{σ_r}{3}\left\{ 4\left(\frac{ω_p}{|ω|}\right)^2 - \left(\frac{ω_p}{|ω|}\right)^8 \right\}
-\end{align}
+\end{align*}
 ```
 
 """

@@ -15,6 +15,11 @@ makedocs(;
     ),
     pages=[
         "Home" => "index.md",
+        "Models" => [
+            "univariate.md",
+            "multivariate.md"
+        ],
+        "fit.md"
     ],
 )
 

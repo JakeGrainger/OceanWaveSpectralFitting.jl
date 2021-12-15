@@ -1,0 +1,6 @@
+# Univariate
+
+## JONSWAP
+```@docs
+JONSWAP
+```
