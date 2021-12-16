@@ -2,7 +2,7 @@
     JS_BWG_HNE{K}(α,ωₚ,γ,r,ϕₘ,β,ν,σₗ,σᵣ)
     JS_BWG_HNE{K}(x)
 
-9 parameter model for vertical, northward and eastward displacement of a partical with JONSWAP marginal spectra and bimodal wrapped Gaussian spreading.
+9 parameter model for vertical, northward and eastward displacement of a partical in waves with JONSWAP marginal spectra and bimodal wrapped Gaussian spreading.
 
 # Type parameter
 The type parameter `K` is a non-negative integer representing the ammount of aliasing to be done.
