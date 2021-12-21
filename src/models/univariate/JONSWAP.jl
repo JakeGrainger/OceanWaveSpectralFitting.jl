@@ -44,7 +44,7 @@ struct JONSWAP{K} <: WhittleLikelihoodInference.UnknownAcvTimeSeriesModel{1}
     function JONSWAP{K}(α,ωₚ,γ,r) where {K}
         α > 0 || throw(ArgumentError("JONSWAP requires α > 0"))
         ωₚ > 0 || throw(ArgumentError("JONSWAP requires ωₚ > 0"))
-        γ > 1 || throw(ArgumentError("JONSWAP requires γ > 1"))
+        γ >= 1 || throw(ArgumentError("JONSWAP requires γ > 1"))
         r > 1 || throw(ArgumentError("JONSWAP requires r > 1"))
         new{K}(α,ωₚ,γ,r,r/4,ωₚ^2,ωₚ^3,ωₚ^4,ωₚ^6,log(γ))
     end

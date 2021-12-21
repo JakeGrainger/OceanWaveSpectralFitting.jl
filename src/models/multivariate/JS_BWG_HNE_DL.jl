@@ -35,12 +35,12 @@ struct JS_BWG_HNE_DL{K,H} <: UnknownAcvTimeSeriesModel{3}
     function JS_BWG_HNE_DL{K,H}(α,ωₚ,γ,r,ϕₘ,β,ν,σₗ,σᵣ) where {K,H}
         α > 0 || throw(ArgumentError("JS_BWG_HNE_DL requires α > 0"))
         ωₚ > 0 || throw(ArgumentError("JS_BWG_HNE_DL requires ωₚ > 0"))
-        γ > 1 || throw(ArgumentError("JS_BWG_HNE_DL requires γ > 1"))
+        γ >= 1 || throw(ArgumentError("JS_BWG_HNE_DL requires γ > 1"))
         r > 1 || throw(ArgumentError("JS_BWG_HNE_DL requires r > 1"))
-        β > 0 || throw(ArgumentError("JS_BWG_HNE_DL requires β > 0"))
-        ν > 0 || throw(ArgumentError("JS_BWG_HNE_DL requires ν > 0"))
-        σₗ > 0 || throw(ArgumentError("JS_BWG_HNE_DL requires σₗ > 0"))
-        σᵣ > 0 || throw(ArgumentError("JS_BWG_HNE_DL requires σᵣ > 0"))
+        β >= 0 || throw(ArgumentError("JS_BWG_HNE_DL requires β > 0"))
+        ν >= 0 || throw(ArgumentError("JS_BWG_HNE_DL requires ν > 0"))
+        σₗ >= 0 || throw(ArgumentError("JS_BWG_HNE_DL requires σₗ > 0"))
+        σᵣ >= 0 || throw(ArgumentError("JS_BWG_HNE_DL requires σᵣ > 0"))
         new{K,H}(α,ωₚ,γ,r,ϕₘ,β,ν,σₗ,σᵣ,
         r/4,ωₚ^2,ωₚ^3,ωₚ^4,ωₚ^6,log(γ),
         σᵣ/3,cos(ϕₘ),sin(ϕₘ),cos(2ϕₘ),sin(2ϕₘ)
