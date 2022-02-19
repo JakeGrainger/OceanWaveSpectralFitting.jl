@@ -49,7 +49,7 @@ struct JONSWAP{K} <: WhittleLikelihoodInference.UnknownAcvTimeSeriesModel{1,Floa
         new{K}(α,ωₚ,γ,r,r/4,ωₚ^2,ωₚ^3,ωₚ^4,ωₚ^6,log(γ))
     end
     function JONSWAP{K}(x::AbstractVector{Float64}) where {K}
-        length(x) == npars(JONSWAP{K}) || throw(ArgumentError("JONSWAP process has $(npars(JONSWAP{K})) parameters, but $(length(x)) were provided."))
+        @boundscheck checkparameterlength(x,JONSWAP{K})
         @inbounds JONSWAP{K}(x[1], x[2], x[3], x[4])
     end
 end

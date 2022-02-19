@@ -47,7 +47,7 @@ struct JS_BWG_HNE_DL{K,H} <: UnknownAcvTimeSeriesModel{3,Float64}
         )
     end
     function JS_BWG_HNE_DL{K,H}(x::AbstractVector{Float64}) where {K,H}
-        length(x) == npars(JS_BWG_HNE_DL{K,H}) || throw(ArgumentError("JS_BWG_HNE_DL process has $(npars(JS_BWG_HNE_DL{K,H})) parameters, but $(length(x)) were provided."))
+        @boundscheck checkparameterlength(x,JS_BWG_HNE_DL{K,H})
         @inbounds JS_BWG_HNE_DL{K,H}(x[1], x[2], x[3], x[4], x[5], x[6], x[7], x[8], x[9])
     end
 end
