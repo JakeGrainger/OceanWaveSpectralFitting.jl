@@ -10,7 +10,7 @@ The additional type parameter `H` is the water depth (m).
 # More information
 For more information, see the documentation for `JS_BWG_HNE`.
 """
-struct JS_BWG_HNE_DL{K,H} <: UnknownAcvTimeSeriesModel{3}
+struct JS_BWG_HNE_DL{K,H} <: UnknownAcvTimeSeriesModel{3,Float64}
     α::Float64
     ωₚ::Float64
     γ::Float64

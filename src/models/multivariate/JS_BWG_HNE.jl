@@ -53,7 +53,7 @@ where
 ```
 
 """
-struct JS_BWG_HNE{K} <: UnknownAcvTimeSeriesModel{3}
+struct JS_BWG_HNE{K} <: UnknownAcvTimeSeriesModel{3,Float64}
     α::Float64
     ωₚ::Float64
     γ::Float64

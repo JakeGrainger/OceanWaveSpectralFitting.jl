@@ -29,7 +29,7 @@ where
 ```
 
 """
-struct JONSWAP{K} <: WhittleLikelihoodInference.UnknownAcvTimeSeriesModel{1}
+struct JONSWAP{K} <: WhittleLikelihoodInference.UnknownAcvTimeSeriesModel{1,Float64}
     α::Float64
     ωₚ::Float64
     γ::Float64
