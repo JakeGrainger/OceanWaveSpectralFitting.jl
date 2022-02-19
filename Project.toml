@@ -13,8 +13,8 @@ WhittleLikelihoodInference = "3fdf5847-2998-4bb9-885b-ec39b41f41a6"
 DSP = "0.7"
 Optim = "1.5"
 Reexport = "1.2"
-WhittleLikelihoodInference = "^0.1.1"
-julia = "1.6"
+WhittleLikelihoodInference = "0.2"
+julia = "1.7"
 
 [extras]
 FiniteDifferences = "26cc04aa-876d-5657-8c51-4c34ba976000"
