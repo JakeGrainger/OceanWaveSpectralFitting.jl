@@ -307,8 +307,8 @@ end
         s_om = sign(ω)
         ω = abs(ω)
         if ω > 1e-10
-            tanhkh² = tanhkh^2
             tanhkh = tanh(approx_dispersion(ω, H))
+            tanhkh² = tanhkh^2
             α,ωₚ,γ,r,β,ν,σₗ,σᵣ = model.α,model.ωₚ,model.γ,model.r,model.β,model.ν,model.σₗ,model.σᵣ
             
             σ1² = 0.0049 + 0.0032 * (ω > ωₚ)
