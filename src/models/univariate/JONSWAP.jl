@@ -64,7 +64,7 @@ WhittleLikelihoodInference.nalias(::JONSWAP{K}) where {K} = K
 lowerbounds(::Type{JONSWAP{K}}) where {K} = [0,0,1,1]
 upperbounds(::Type{JONSWAP{K}}) where {K} = [Inf,Inf,Inf,Inf]
 
-function WhittleLikelihoodInference.sdf(model::JONSWAP{K}, ω::Real) where {K}
+@inline @fastmath function WhittleLikelihoodInference.sdf(model::JONSWAP{K}, ω::Real) where {K}
     α,ωₚ,γ,r = model.α,model.ωₚ,model.γ,model.r
     ω = abs(ω)
     if ω > 1e-10
@@ -77,71 +77,76 @@ function WhittleLikelihoodInference.sdf(model::JONSWAP{K}, ω::Real) where {K}
     end
 end
 
-function WhittleLikelihoodInference.grad_add_sdf!(out, model::JONSWAP{K}, ω::Real) where {K}
-    α,ωₚ,γ,r = model.α,model.ωₚ,model.γ,model.r
-    ω = abs(ω)
-    if ω > 1e-10
-        σ1² = 0.0049 + 0.0032 * (ω > ωₚ)
-        δ = exp(-1 / (2σ1²) * (ω / ωₚ - 1)^2)
-        ω⁻⁴ = ω^(-4)
-        ωₚ⁴_over_ω⁴ = model.ωₚ⁴ * ω⁻⁴
-        sdf = (α * ω^(-r) * exp(-(model.r_over4) * ωₚ⁴_over_ω⁴) * γ^δ) / 2
-        
-        ∂S∂α = sdf / α
-        ∂S∂ωₚ = sdf * (δ*model.logγ * ω / σ1² *(ω-ωₚ) / model.ωₚ³ - r*model.ωₚ³*ω⁻⁴)
-        ∂S∂γ = sdf * δ / γ
-        ∂S∂r = sdf * (-log(ω)-ωₚ⁴_over_ω⁴/4)
+@propagate_inbounds @fastmath function WhittleLikelihoodInference.grad_add_sdf!(out, model::JONSWAP{K}, ω::Real) where {K}
+    @boundscheck checkbounds(out,1:4)
+    @inbounds begin
+        ω = abs(ω)
+        if ω > 1e-10
+            α,ωₚ,γ,r = model.α,model.ωₚ,model.γ,model.r
+            σ1² = 0.0049 + 0.0032 * (ω > ωₚ)
+            δ = exp(-1 / (2σ1²) * (ω / ωₚ - 1)^2)
+            ω⁻⁴ = ω^(-4)
+            ωₚ⁴_over_ω⁴ = model.ωₚ⁴ * ω⁻⁴
+            sdf = (α * ω^(-r) * exp(-(model.r_over4) * ωₚ⁴_over_ω⁴) * γ^δ) / 2
+            
+            ∂S∂α = sdf / α
+            ∂S∂ωₚ = sdf * (δ*model.logγ * ω / σ1² *(ω-ωₚ) / model.ωₚ³ - r*model.ωₚ³*ω⁻⁴)
+            ∂S∂γ = sdf * δ / γ
+            ∂S∂r = sdf * (-log(ω)-ωₚ⁴_over_ω⁴/4)
 
-        out[1] += ∂S∂α
-        out[2] += ∂S∂ωₚ
-        out[3] += ∂S∂γ
-        out[4] += ∂S∂r
-    end # 0 otherwise
-
+            out[1] += ∂S∂α
+            out[2] += ∂S∂ωₚ
+            out[3] += ∂S∂γ
+            out[4] += ∂S∂r
+        end # 0 otherwise
+    end
     return nothing
 end
 
-function WhittleLikelihoodInference.hess_add_sdf!(out, model::JONSWAP{K}, ω::Real) where {K}
-    α,ωₚ,γ,r = model.α,model.ωₚ,model.γ,model.r
-    ω = abs(ω)
-    if ω > 1e-10
-        σ1² = 0.0049 + 0.0032 * (ω > ωₚ)
-        δ = exp(-1 / (2σ1²) * (ω / ωₚ - 1)^2)
-        ω⁻⁴ = ω^(-4)
-        ωₚ⁴_over_ω⁴ = model.ωₚ⁴ * ω⁻⁴
-        ωₚ³_over_ω⁴ = model.ωₚ³ * ω⁻⁴
-        sdf = (α * ω^(-r) * exp(-(model.r_over4) * ωₚ⁴_over_ω⁴) * γ^δ) / 2
-        
-        δωlogγ_over_σ1² = δ*model.logγ * ω / σ1²
-        ∂S∂ωₚUsepart = (δ*model.logγ * ω / σ1² *(ω-ωₚ) / model.ωₚ³ - r*ωₚ³_over_ω⁴)
-        ∂S∂ωₚ = sdf * ∂S∂ωₚUsepart
-        δ_over_γ = δ / γ
-        ∂S∂γ = sdf * δ_over_γ
-        ∂r_part = (-log(ω)-ωₚ⁴_over_ω⁴/4)
-        ∂S∂r = sdf * ∂r_part
-        
-        ∂S∂αωₚ = ∂S∂ωₚ / α
-        ∂S∂αγ = ∂S∂γ / α
-        ∂S∂αr = ∂S∂r / α
-        
-        ∂S∂ωₚ2 = ∂S∂ωₚ * ∂S∂ωₚUsepart + sdf * (δωlogγ_over_σ1² *((-3ω + 2ωₚ)/model.ωₚ⁴ + ω * (ω-ωₚ)^2/model.ωₚ⁶/σ1²) - 3r*model.ωₚ²*ω⁻⁴)
-        ∂S∂ωₚγ = ∂S∂γ * ∂S∂ωₚUsepart + sdf * δ_over_γ * ω / σ1²*(ω-ωₚ)/model.ωₚ³
-        ∂S∂ωₚr = ∂S∂r * ∂S∂ωₚUsepart - sdf * model.ωₚ³*ω⁻⁴
-        ∂S∂γ2 = δ_over_γ * (∂S∂γ - sdf/γ)
-        ∂S∂γr = ∂S∂r * δ_over_γ
-        ∂S∂r2 = ∂S∂r * ∂r_part
+@propagate_inbounds @fastmath function WhittleLikelihoodInference.hess_add_sdf!(out, model::JONSWAP{K}, ω::Real) where {K}
+    @boundscheck checkbounds(out,1:10)
+    @inbounds begin
+        ω = abs(ω)
+        if ω > 1e-10
+            α,ωₚ,γ,r = model.α,model.ωₚ,model.γ,model.r
+            σ1² = 0.0049 + 0.0032 * (ω > ωₚ)
+            δ = exp(-1 / (2σ1²) * (ω / ωₚ - 1)^2)
+            ω⁻⁴ = ω^(-4)
+            ωₚ⁴_over_ω⁴ = model.ωₚ⁴ * ω⁻⁴
+            ωₚ³_over_ω⁴ = model.ωₚ³ * ω⁻⁴
+            sdf = (α * ω^(-r) * exp(-(model.r_over4) * ωₚ⁴_over_ω⁴) * γ^δ) / 2
+            
+            δωlogγ_over_σ1² = δ*model.logγ * ω / σ1²
+            ∂S∂ωₚUsepart = (δ*model.logγ * ω / σ1² *(ω-ωₚ) / model.ωₚ³ - r*ωₚ³_over_ω⁴)
+            ∂S∂ωₚ = sdf * ∂S∂ωₚUsepart
+            δ_over_γ = δ / γ
+            ∂S∂γ = sdf * δ_over_γ
+            ∂r_part = (-log(ω)-ωₚ⁴_over_ω⁴/4)
+            ∂S∂r = sdf * ∂r_part
+            
+            ∂S∂αωₚ = ∂S∂ωₚ / α
+            ∂S∂αγ = ∂S∂γ / α
+            ∂S∂αr = ∂S∂r / α
+            
+            ∂S∂ωₚ2 = ∂S∂ωₚ * ∂S∂ωₚUsepart + sdf * (δωlogγ_over_σ1² *((-3ω + 2ωₚ)/model.ωₚ⁴ + ω * (ω-ωₚ)^2/model.ωₚ⁶/σ1²) - 3r*model.ωₚ²*ω⁻⁴)
+            ∂S∂ωₚγ = ∂S∂γ * ∂S∂ωₚUsepart + sdf * δ_over_γ * ω / σ1²*(ω-ωₚ)/model.ωₚ³
+            ∂S∂ωₚr = ∂S∂r * ∂S∂ωₚUsepart - sdf * model.ωₚ³*ω⁻⁴
+            ∂S∂γ2 = δ_over_γ * (∂S∂γ - sdf/γ)
+            ∂S∂γr = ∂S∂r * δ_over_γ
+            ∂S∂r2 = ∂S∂r * ∂r_part
 
-        # out[1] += 0
-        out[2] += ∂S∂αωₚ
-        out[3] += ∂S∂αγ
-        out[4] += ∂S∂αr
-        out[5] += ∂S∂ωₚ2
-        out[6] += ∂S∂ωₚγ
-        out[7] += ∂S∂ωₚr
-        out[8] += ∂S∂γ2
-        out[9] += ∂S∂γr
-        out[10] += ∂S∂r2
-    end # 0 otherwise
+            # out[1] += 0
+            out[2] += ∂S∂αωₚ
+            out[3] += ∂S∂αγ
+            out[4] += ∂S∂αr
+            out[5] += ∂S∂ωₚ2
+            out[6] += ∂S∂ωₚγ
+            out[7] += ∂S∂ωₚr
+            out[8] += ∂S∂γ2
+            out[9] += ∂S∂γr
+            out[10] += ∂S∂r2
+        end # 0 otherwise
+    end
 
     return nothing
 end
