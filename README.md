@@ -2,6 +2,7 @@
 
 [![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://JakeGrainger.github.io/OceanWaveSpectralFitting.jl/stable)
 [![Build Status](https://github.com/JakeGrainger/OceanWaveSpectralFitting.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/JakeGrainger/OceanWaveSpectralFitting.jl/actions/workflows/CI.yml?query=branch%3Amain)
+[![Coverage](https://codecov.io/gh/JakeGrainger/OceanWaveSpectralFitting.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/JakeGrainger/OceanWaveSpectralFitting.jl)
 
 A julia package for fitting parametric spectral wave models to recorded time series using Whittle and debiased Whittle likelihood inference. This package extends the functionality of [*WhittleLikelihoodInference.jl*](https://github.com/JakeGrainger/WhittleLikelihoodInference.jl) to include models for ocean waves, and adds a fit function which uses solvers from [*Optim.jl*](https://github.com/JuliaNLSolvers/Optim.jl) with the option to use dpss tapers from [*DSP.jl*](https://github.com/JuliaDSP/DSP.jl).
 
