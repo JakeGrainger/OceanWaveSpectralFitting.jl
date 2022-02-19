@@ -3,6 +3,7 @@ module OceanWaveSpectralFitting
 using Reexport
 @reexport using WhittleLikelihoodInference
 import WhittleLikelihoodInference: UnknownAcvTimeSeriesModel, checkparameterlength
+import Base: @propagate_inbounds
 using Optim, DSP
 
 include("models/univariate/JONSWAP.jl")
