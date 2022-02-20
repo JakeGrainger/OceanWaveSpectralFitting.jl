@@ -1,4 +1,5 @@
 const TwoJONSWAP = JONSWAP{1} + JONSWAP{1}
+import OceanWaveSpectralFitting: lowerbounds, upperbounds
 @testset "fit" begin
     θ = [0.7,0.8,3.3,5.0]
     θ2 = [0.7,0.8,3.3,5.0,1.2,1.1,3.3,5.0]
