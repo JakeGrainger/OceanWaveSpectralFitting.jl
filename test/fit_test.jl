@@ -1,5 +1,7 @@
+const TwoJONSWAP = JONSWAP{1} + JONSWAP{1}
 @testset "fit" begin
     θ = [0.7,0.8,3.3,5.0]
+    θ2 = [0.7,0.8,3.3,5.0,1.2,1.1,3.3,5.0]
     @testset "Error handling" begin
         @test_throws ArgumentError fit(ones(10,2),1,model=JONSWAP{1},x₀=θ)
         @test_throws ArgumentError fit(ones(10,2),1,model=JS_BWG_HNE{1},x₀=[θ;[0,4.0,2.7,0.55,0.26]])
@@ -14,5 +16,9 @@
         @test fit(ts,model=JONSWAP{1},x₀=θ) isa OceanWaveSpectralFitting.Optim.MultivariateOptimizationResults
         @test fit(ts,model=JONSWAP{1},x₀=θ,taper=:dpss_4) isa OceanWaveSpectralFitting.Optim.MultivariateOptimizationResults
         @test fit(ts.ts,ts.Δ,model=JONSWAP{1},x₀=θ,taper="dpss_4.2") isa OceanWaveSpectralFitting.Optim.MultivariateOptimizationResults
+        @test lowerbounds(TwoJONSWAP) == [lowerbounds(JONSWAP);lowerbounds(JONSWAP)]
+        @test upperbounds(TwoJONSWAP) == [upperbounds(JONSWAP);upperbounds(JONSWAP)]
+        ts2 = simulate_gp(TwoJONSWAP(θ2),1000,1.0,1)[1]
+        @test fit(ts.ts,ts.Δ,model=TwoJONSWAP,x₀=θ2,taper="dpss_4.2") isa OceanWaveSpectralFitting.Optim.MultivariateOptimizationResults
     end
 end
