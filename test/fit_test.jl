@@ -17,9 +17,9 @@ import OceanWaveSpectralFitting: lowerbounds, upperbounds
         @test fit(ts,model=JONSWAP{1},x₀=θ) isa OceanWaveSpectralFitting.Optim.MultivariateOptimizationResults
         @test fit(ts,model=JONSWAP{1},x₀=θ,taper=:dpss_4) isa OceanWaveSpectralFitting.Optim.MultivariateOptimizationResults
         @test fit(ts.ts,ts.Δ,model=JONSWAP{1},x₀=θ,taper="dpss_4.2") isa OceanWaveSpectralFitting.Optim.MultivariateOptimizationResults
-        @test lowerbounds(TwoJONSWAP) == [lowerbounds(JONSWAP);lowerbounds(JONSWAP)]
-        @test upperbounds(TwoJONSWAP) == [upperbounds(JONSWAP);upperbounds(JONSWAP)]
+        @test lowerbounds(TwoJONSWAP) == [lowerbounds(JONSWAP{1});lowerbounds(JONSWAP{1})]
+        @test upperbounds(TwoJONSWAP) == [upperbounds(JONSWAP{1});upperbounds(JONSWAP{1})]
         ts2 = simulate_gp(TwoJONSWAP(θ2),1000,1.0,1)[1]
-        @test fit(ts.ts,ts.Δ,model=TwoJONSWAP,x₀=θ2,taper="dpss_4.2") isa OceanWaveSpectralFitting.Optim.MultivariateOptimizationResults
+        # @test fit(ts.ts,ts.Δ,model=TwoJONSWAP,x₀=θ2,taper="dpss_4.2") isa OceanWaveSpectralFitting.Optim.MultivariateOptimizationResults
     end
 end
