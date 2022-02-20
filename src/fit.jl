@@ -58,3 +58,5 @@ function maketaper(taper::String,n)
     tapername == "dpss" || throw(ArgumentError("Taper should be nothing or dpss_nw where nw is the value of nw used for the taper. Other kinds of tapering are not yet supported."))
     return vec(dpss(n, parse(Float64,nw), 1))
 end
+lowerbounds(::Type{<:AdditiveTimeSeriesModel{M₁,M₂,D,T}}) where {M₁,M₂,D,T} = vcat(lowerbounds(M₁),lowerbounds(M₂))
+upperbounds(::Type{<:AdditiveTimeSeriesModel{M₁,M₂,D,T}}) where {M₁,M₂,D,T} = vcat(upperbounds(M₁),upperbounds(M₂))
