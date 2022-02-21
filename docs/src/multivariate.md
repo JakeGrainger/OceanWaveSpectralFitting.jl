@@ -11,3 +11,8 @@ JS_BWG_HNE
 ```@docs
 JS_BWG_HNE_DL
 ```
+
+### JONSWAP with wrapped Gaussian (depth limited)
+```@docs
+JS_WG_HNE_DL
+```
