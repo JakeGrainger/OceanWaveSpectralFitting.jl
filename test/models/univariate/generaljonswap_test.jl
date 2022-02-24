@@ -1,4 +1,4 @@
-@testset "GeneralGeneralJONSWAP" begin
+@testset "GeneralJONSWAP" begin
     θ₀ = [0.7, 0.9, 3.3, 5.0, 4.0]
     ω = 1.0
     
