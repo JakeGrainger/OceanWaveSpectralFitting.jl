@@ -12,7 +12,7 @@
         @test_throws ArgumentError Gaussian{1}(0.7, 0.9, -0.1)
         @test_throws ArgumentError Gaussian{1}(ones(2))
         @test_throws ArgumentError Gaussian{1}(ones(4))
-        @test_throws ErrorException Gaussian(ones(4))
+        @test_throws ErrorException Gaussian(ones(3))
         @test_throws ErrorException Gaussian(0.7, 0.9, 0.1)
     end
 end
