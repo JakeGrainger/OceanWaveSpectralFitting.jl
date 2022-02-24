@@ -31,5 +31,6 @@ end
     include("models/multivariate/JS_BWG_HNE_test.jl")
     include("models/multivariate/JS_BWG_HNE_DL_test.jl")
     include("models/multivariate/JS_WG_HNE_DL_test.jl")
+    include("models/multivariate/GJS_BWG_HNE_DL_test.jl")
     include("fit_test.jl")
 end

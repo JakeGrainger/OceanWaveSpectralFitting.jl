@@ -11,8 +11,9 @@ include("models/univariate/generaljonswap.jl")
 include("models/multivariate/JS_BWG_HNE.jl")
 include("models/multivariate/JS_BWG_HNE_DL.jl")
 include("models/multivariate/JS_WG_HNE_DL.jl")
+include("models/multivariate/GJS_BWG_HNE_DL.jl")
 include("fit.jl")
 
-export JONSWAP, GeneralJONSWAP, JS_BWG_HNE, JS_BWG_HNE_DL, JS_WG_HNE_DL, fit
+export JONSWAP, GeneralJONSWAP, JS_BWG_HNE, JS_BWG_HNE_DL, JS_WG_HNE_DL, GJS_BWG_HNE_DL, fit
 
 end
