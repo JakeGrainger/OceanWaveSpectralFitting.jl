@@ -97,7 +97,7 @@ upperbounds(::Type{GJS_BWG_HNE_DL{K,H}}) where {K,H} = [Inf,Inf,Inf,Inf,Inf,Inf,
 end
 
 @propagate_inbounds @fastmath function WhittleLikelihoodInference.grad_add_sdf!(out, model::GJS_BWG_HNE_DL{K,H}, ω::Real) where {K,H}
-    @boundscheck checkbounds(out,1:6,1:9)
+    @boundscheck checkbounds(out,1:6,1:10)
     @inbounds begin
         s_om = sign(ω)
         ω = abs(ω)
