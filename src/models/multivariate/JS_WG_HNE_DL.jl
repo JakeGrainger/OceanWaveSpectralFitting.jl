@@ -1,8 +1,8 @@
 @doc raw"""
-    JS_WG_HNE{K,H}(α,ωₚ,γ,r,ϕₘ,β,ν,σₗ,σᵣ)
+    JS_WG_HNE{K,H}(α,ωₚ,γ,r,ϕₘ,σ)
     JS_WG_HNE{K,H}(x)
 
-9 parameter model for vertical, northward and eastward displacement of a partical in waves with JONSWAP marginal spectra and bimodal wrapped Gaussian spreading.
+6 parameter model for vertical, northward and eastward displacement of a partical in waves with JONSWAP marginal spectra and bimodal wrapped Gaussian spreading.
 
 # Type parameter
 The type parameter `K` is a non-negative integer representing the ammount of aliasing to be done.
@@ -37,7 +37,7 @@ where
 ```math
 δ(ω) = \exp\left\{-\tfrac{1}{2 (0.07+0.02\cdot\mathbb{1}_{ωₚ>|ω|})^2}\left (\tfrac{|ω|}{ωₚ}-1\right )^2\right\}.
 ```
-The bimodal wrapped Gaussian spreading function is 
+The wrapped Gaussian spreading function is 
 ```math
 D(ω,ϕ) = \frac{1}{σ(ω)\sqrt{2π}}\sum\limits_{k=-∞}^{∞} \exp\left\{-\frac{1}{2}\left(\frac{ϕ-ϕ_{m}-2\pi k}{σ}\right)^2\right\}
 ```
