@@ -20,7 +20,7 @@ end
 Base.@propagate_inbounds @fastmath function WhittleLikelihoodInference.add_sdf!(out, model::Gaussian, ω::Real)
     @inbounds begin
         ω = abs(ω)
-        return norm*exp(-(model.ωₚ-ω)^2*model.halfσ⁻²)
+        return model.norm*exp(-(model.ωₚ-ω)^2*model.halfσ⁻²)
     end
     nothing
 end
@@ -38,7 +38,7 @@ Base.@propagate_inbounds @fastmath function WhittleLikelihoodInference.grad_add_
     @boundscheck checkbounds(out,1:3)
     @inbounds begin
         ω = abs(ω)
-        sdf = exp(-(model.ωₚ-ω)^2 * model.halfσ⁻²)
+        sdf = model.norm*exp(-(model.ωₚ-ω)^2 * model.halfσ⁻²)
         out[1] += sdf/α
         out[2] -= 2(ω-model.ωₚ) * model.halfσ⁻² * sdf
         out[3] += 2(model.ωₚ-ω)^2 * model.halfσ⁻² * sdf
