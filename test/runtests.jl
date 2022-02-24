@@ -27,6 +27,7 @@ end
 
 @testset "OceanWaveSpectralFitting.jl" begin
     include("models/univariate/JONSWAP_test.jl")
+    include("models/univariate/generaljonswap_test.jl")
     include("models/multivariate/JS_BWG_HNE_test.jl")
     include("models/multivariate/JS_BWG_HNE_DL_test.jl")
     include("models/multivariate/JS_WG_HNE_DL_test.jl")
