@@ -32,7 +32,7 @@ OceanWaveSpectralFitting.lowerbounds(::Type{Gaussian{K}}) where {K} = [0,  0, 0]
 OceanWaveSpectralFitting.upperbounds(::Type{Gaussian{K}}) where {K} = [Inf,Inf,Inf]
 
 Gaussian(x::AbstractVector{Float64}) = GeneralJONSWAP(1,1,1,1,1)
-Gaussian(α,ωₚ,γ,r,s) = error("GeneralJONSWAP process requires the ammount of aliasing specified as a type parameter. Use GeneralJONSWAP{K}() where K ∈ N.")
+Gaussian(α,ωₚ,γ,r,s) = error("Gaussian process requires the ammount of aliasing specified as a type parameter. Use Gaussian{K}() where K ∈ N.")
 
 Base.@propagate_inbounds @fastmath function WhittleLikelihoodInference.grad_add_sdf!(out, model::Gaussian, ω::Real)
     @boundscheck checkbounds(out,1:3)
