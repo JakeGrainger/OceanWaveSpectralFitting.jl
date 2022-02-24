@@ -1,4 +1,4 @@
-struct Gaussian{K} <: WhittleLikelihoodInference.UnknownAcvTimeSeriesModel{3,Float64}
+struct Gaussian{K} <: WhittleLikelihoodInference.UnknownAcvTimeSeriesModel{1,Float64}
     α::Float64
     ωₚ::Float64
     σ::Float64
@@ -17,12 +17,8 @@ struct Gaussian{K} <: WhittleLikelihoodInference.UnknownAcvTimeSeriesModel{3,Flo
     end
 end
 
-Base.@propagate_inbounds @fastmath function WhittleLikelihoodInference.add_sdf!(out, model::Gaussian, ω::Real)
-    @inbounds begin
-        ω = abs(ω)
-        return model.norm*exp(-(model.ωₚ-ω)^2*model.halfσ⁻²)
-    end
-    nothing
+@fastmath function WhittleLikelihoodInference.sdf(model::Gaussian, ω::Real)
+    return model.norm*exp(-(model.ωₚ-abs(ω))^2*model.halfσ⁻²)
 end
 
 WhittleLikelihoodInference.npars(::Type{Gaussian{K}}) where {K} = 3
@@ -31,7 +27,7 @@ WhittleLikelihoodInference.nalias(::Gaussian{K}) where {K} = K
 OceanWaveSpectralFitting.lowerbounds(::Type{Gaussian{K}}) where {K} = [0,  0, 0]
 OceanWaveSpectralFitting.upperbounds(::Type{Gaussian{K}}) where {K} = [Inf,Inf,Inf]
 
-Gaussian(x::AbstractVector{Float64}) = GeneralJONSWAP(1,1,1)
+Gaussian(x::AbstractVector{Float64}) = Gaussian(1,1,1)
 Gaussian(α,ωₚ,σ) = error("Gaussian process requires the ammount of aliasing specified as a type parameter. Use Gaussian{K}() where K ∈ N.")
 
 Base.@propagate_inbounds @fastmath function WhittleLikelihoodInference.grad_add_sdf!(out, model::Gaussian, ω::Real)
@@ -39,10 +35,9 @@ Base.@propagate_inbounds @fastmath function WhittleLikelihoodInference.grad_add_
     @inbounds begin
         ω = abs(ω)
         sdf = model.norm*exp(-(model.ωₚ-ω)^2 * model.halfσ⁻²)
-        out[1] += sdf/α
-        out[2] -= 2(ω-model.ωₚ) * model.halfσ⁻² * sdf
-        out[3] += 2(model.ωₚ-ω)^2 * model.halfσ⁻² * sdf
-        out[3] += sdf * ((ω-ωₚ)^2/model.σ^3-1/model.σ)
+        out[1] += sdf/model.α
+        out[2] += 2(ω-model.ωₚ) * model.halfσ⁻² * sdf
+        out[3] += sdf * ((ω-model.ωₚ)^2/model.σ^3-1/model.σ)
     end
     nothing
 end
