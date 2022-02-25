@@ -21,5 +21,7 @@ import OceanWaveSpectralFitting: lowerbounds, upperbounds
         @test upperbounds(TwoJONSWAP) == [upperbounds(JONSWAP{1});upperbounds(JONSWAP{1})]
         ts2 = simulate_gp(TwoJONSWAP(θ2),1000,1.0,1)[1]
         @test fit(ts.ts,ts.Δ,model=TwoJONSWAP,x₀=θ2,taper="dpss_4.2") isa OceanWaveSpectralFitting.Optim.MultivariateOptimizationResults
+        @test fit(ts.ts,ts.Δ,model=TwoJONSWAP,x₀=θ2,taper="dpss_4.2",options=OceanWaveSpectralFitting.Optim.Options(iterations=10)) isa OceanWaveSpectralFitting.Optim.MultivariateOptimizationResults
+        @test fit(ts,model=TwoJONSWAP,x₀=θ2,taper="dpss_4.2",options=OceanWaveSpectralFitting.Optim.Options(iterations=10)) isa OceanWaveSpectralFitting.Optim.MultivariateOptimizationResults        
     end
 end

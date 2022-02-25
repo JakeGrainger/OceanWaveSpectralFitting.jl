@@ -16,9 +16,10 @@ Fit a wave model using `IPNewton` method from Optim.jl.
 - `x_upperbounds`: The upper bounds on the parameter space. If `nothing` is provided (the default) then these are set to default values based on the model.
 - `method`: Either `:Whittle` or `:debiasedWhittle`.
 - `taper`: The choice of tapering to be used. This should be `nothing` (in which case no taper is used) or `dpss_nw` where `nw` time-bandwith product (see DSP.dpss for more details).
+- `options`: Options for optimisation of type `Optim.Options`.
 """
-function fit(ts::Array{Float64,N},Δ::Real;model::Type{<:TimeSeriesModel},x₀,lowerΩcutoff::Real=0.0,upperΩcutoff::Real=Inf,
-            x_lowerbounds=nothing,x_upperbounds=nothing,method=:debiasedWhittle,taper=nothing) where {N}
+function fit(ts::VecOrMat{Float64},Δ::Real;model::Type{<:TimeSeriesModel},x₀,lowerΩcutoff::Real=0.0,upperΩcutoff::Real=Inf,
+            x_lowerbounds=nothing,x_upperbounds=nothing,method=:debiasedWhittle,taper=nothing,options::Optim.Options=Optim.Options(iterations=1000))
     Δ > 0 || throw(ArgumentError("Δ should be a positive number."))
     model(x₀) # to check that the model can be constructed from the initial vector provided.
     size(ts,2) == ndims(model) || throw(ArgumentError("ts should by of size `(n,D)` where `D` is the dimension of the timeseries."))
@@ -42,14 +43,14 @@ function fit(ts::Array{Float64,N},Δ::Real;model::Type{<:TimeSeriesModel},x₀,l
     end
     constraints = Optim.TwiceDifferentiableConstraints(x_lowerbounds,x_upperbounds)
     obj = TwiceDifferentiable(Optim.only_fgh!(objective),x₀)
-    res = optimize(obj, constraints, x₀, IPNewton())
+    res = optimize(obj, constraints, x₀, IPNewton(), options)
     Optim.converged(res) || @warn "Optimisation did not converge!"
     return res
 end
 function fit(ts::WhittleLikelihoodInference.TimeSeries;model::Type{<:TimeSeriesModel},x₀,lowerΩcutoff::Real=0.0,upperΩcutoff::Real=Inf,
-            x_lowerbounds=nothing,x_upperbounds=nothing,method=:debiasedWhittle,taper=nothing) where {N}
+            x_lowerbounds=nothing,x_upperbounds=nothing,method=:debiasedWhittle,taper=nothing,options::Optim.Options=Optim.Options(iterations=1000))
     fit(ts.ts,ts.Δ,model=model,x₀=x₀,lowerΩcutoff=lowerΩcutoff,upperΩcutoff=upperΩcutoff,
-    x_lowerbounds=x_lowerbounds,x_upperbounds=x_upperbounds,method=method,taper=taper)
+    x_lowerbounds=x_lowerbounds,x_upperbounds=x_upperbounds,method=method,taper=taper,options=options)
 end
 maketaper(taper::Nothing,n) = nothing
 maketaper(taper::Symbol,n) = maketaper(String(taper),n)
