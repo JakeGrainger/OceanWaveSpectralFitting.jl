@@ -1,7 +1,7 @@
 name = "OceanWaveSpectralFitting"
 uuid = "a44e4c57-a566-426a-9563-b0c20c24dda1"
 authors = ["Jake Grainger <j.p.grainger2@outlook.com>"]
-version = "0.2.2"
+version = "0.2.3"
 
 [deps]
 DSP = "717857b8-e6f2-59f4-9121-6e50c889abd2"
