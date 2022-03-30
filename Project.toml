@@ -1,7 +1,7 @@
 name = "OceanWaveSpectralFitting"
 uuid = "a44e4c57-a566-426a-9563-b0c20c24dda1"
 authors = ["Jake Grainger <j.p.grainger2@outlook.com>"]
-version = "0.2.3"
+version = "0.3.0"
 
 [deps]
 Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
