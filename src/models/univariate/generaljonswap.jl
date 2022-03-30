@@ -34,8 +34,8 @@ GeneralJONSWAP(α,ωₚ,γ,r,s) = error("GeneralJONSWAP process requires the amm
 WhittleLikelihoodInference.npars(::Type{GeneralJONSWAP{K}}) where {K} = 5
 WhittleLikelihoodInference.nalias(::GeneralJONSWAP{K}) where {K} = K
 
-lowerbounds(::Type{GeneralJONSWAP{K}}) where {K} = [0,0,1,1,0]
-upperbounds(::Type{GeneralJONSWAP{K}}) where {K} = [Inf,Inf,Inf,Inf,Inf]
+WhittleLikelihoodInference.lowerbounds(::Type{GeneralJONSWAP{K}}) where {K} = [0,0,1,1,0]
+WhittleLikelihoodInference.upperbounds(::Type{GeneralJONSWAP{K}}) where {K} = [Inf,Inf,Inf,Inf,Inf]
 
 @inline @fastmath function WhittleLikelihoodInference.sdf(model::GeneralJONSWAP{K}, ω::Real) where {K}
     α,ωₚ,γ,r,s = model.α,model.ωₚ,model.γ,model.r,model.s

@@ -24,8 +24,8 @@ end
 WhittleLikelihoodInference.npars(::Type{Gaussian{K}}) where {K} = 3
 WhittleLikelihoodInference.nalias(::Gaussian{K}) where {K} = K
 
-OceanWaveSpectralFitting.lowerbounds(::Type{Gaussian{K}}) where {K} = [0,  0, 0]
-OceanWaveSpectralFitting.upperbounds(::Type{Gaussian{K}}) where {K} = [Inf,Inf,Inf]
+WhittleLikelihoodInference.lowerbounds(::Type{Gaussian{K}}) where {K} = [0,  0, 0]
+WhittleLikelihoodInference.upperbounds(::Type{Gaussian{K}}) where {K} = [Inf,Inf,Inf]
 
 Gaussian(x::AbstractVector{Float64}) = Gaussian(1,1,1)
 Gaussian(α,ωₚ,κ) = error("Gaussian process requires the ammount of aliasing specified as a type parameter. Use Gaussian{K}() where K ∈ N.")

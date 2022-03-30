@@ -18,8 +18,7 @@ makedocs(;
         "Models" => [
             "univariate.md",
             "multivariate.md"
-        ],
-        "fit.md"
+        ]
     ],
 )
 

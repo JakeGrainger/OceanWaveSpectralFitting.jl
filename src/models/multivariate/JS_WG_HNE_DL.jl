@@ -84,8 +84,8 @@ JS_WG_HNE_DL(α,ωₚ,γ,r,ϕₘ,σ) = error("JS_WG_HNE_DL process requires the 
 WhittleLikelihoodInference.npars(::Type{JS_WG_HNE_DL{K,H}}) where {K,H} = 6
 WhittleLikelihoodInference.nalias(::JS_WG_HNE_DL{K,H}) where {K,H} = K
 
-lowerbounds(::Type{JS_WG_HNE_DL{K,H}}) where {K,H} = [0,0,1,1,-Inf,0]
-upperbounds(::Type{JS_WG_HNE_DL{K,H}}) where {K,H} = [Inf,Inf,Inf,Inf,Inf,Inf]
+WhittleLikelihoodInference.lowerbounds(::Type{JS_WG_HNE_DL{K,H}}) where {K,H} = [0,0,1,1,-Inf,0]
+WhittleLikelihoodInference.upperbounds(::Type{JS_WG_HNE_DL{K,H}}) where {K,H} = [Inf,Inf,Inf,Inf,Inf,Inf]
 
 @propagate_inbounds @fastmath function WhittleLikelihoodInference.add_sdf!(out, model::JS_WG_HNE_DL{K,H}, ω) where {K,H}
     @boundscheck checkbounds(out,1:6)

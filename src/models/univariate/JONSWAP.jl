@@ -61,8 +61,8 @@ JONSWAP(α,ωₚ,γ,r) = error("JONSWAP process requires the ammount of aliasing
 WhittleLikelihoodInference.npars(::Type{JONSWAP{K}}) where {K} = 4
 WhittleLikelihoodInference.nalias(::JONSWAP{K}) where {K} = K
 
-lowerbounds(::Type{JONSWAP{K}}) where {K} = [0,0,1,1]
-upperbounds(::Type{JONSWAP{K}}) where {K} = [Inf,Inf,Inf,Inf]
+WhittleLikelihoodInference.lowerbounds(::Type{JONSWAP{K}}) where {K} = [0,0,1,1]
+WhittleLikelihoodInference.upperbounds(::Type{JONSWAP{K}}) where {K} = [Inf,Inf,Inf,Inf]
 
 @inline @fastmath function WhittleLikelihoodInference.sdf(model::JONSWAP{K}, ω::Real) where {K}
     α,ωₚ,γ,r = model.α,model.ωₚ,model.γ,model.r

@@ -34,8 +34,8 @@ Gaussian_WG_HNE_DL(α,ωₚ,κ,ϕₘ,σ) = error("Gaussian_WG_HNE_DL process req
 WhittleLikelihoodInference.npars(::Type{Gaussian_WG_HNE_DL{K,H}}) where {K,H} = 5
 WhittleLikelihoodInference.nalias(::Gaussian_WG_HNE_DL{K,H}) where {K,H} = K
 
-lowerbounds(::Type{Gaussian_WG_HNE_DL{K,H}}) where {K,H} = [0,0,0,-Inf,0]
-upperbounds(::Type{Gaussian_WG_HNE_DL{K,H}}) where {K,H} = [Inf,Inf,Inf,Inf,Inf]
+WhittleLikelihoodInference.lowerbounds(::Type{Gaussian_WG_HNE_DL{K,H}}) where {K,H} = [0,0,0,-Inf,0]
+WhittleLikelihoodInference.upperbounds(::Type{Gaussian_WG_HNE_DL{K,H}}) where {K,H} = [Inf,Inf,Inf,Inf,Inf]
 
 @propagate_inbounds @fastmath function WhittleLikelihoodInference.add_sdf!(out, model::Gaussian_WG_HNE_DL{K,H}, ω) where {K,H}
     @boundscheck checkbounds(out,1:6)

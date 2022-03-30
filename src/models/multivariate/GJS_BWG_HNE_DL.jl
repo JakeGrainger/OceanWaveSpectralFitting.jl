@@ -51,8 +51,8 @@ GJS_BWG_HNE_DL(α,ωₚ,γ,r,s,ϕₘ,β,ν,σₗ,σᵣ) = error("GJS_BWG_HNE_DL 
 WhittleLikelihoodInference.npars(::Type{GJS_BWG_HNE_DL{K,H}}) where {K,H} = 10
 WhittleLikelihoodInference.nalias(::GJS_BWG_HNE_DL{K,H}) where {K,H} = K
 
-lowerbounds(::Type{GJS_BWG_HNE_DL{K,H}}) where {K,H} = [0,0,1,1,0,-Inf,0,0,0,0]
-upperbounds(::Type{GJS_BWG_HNE_DL{K,H}}) where {K,H} = [Inf,Inf,Inf,Inf,Inf,Inf,Inf,Inf,Inf,Inf]
+WhittleLikelihoodInference.lowerbounds(::Type{GJS_BWG_HNE_DL{K,H}}) where {K,H} = [0,0,1,1,0,-Inf,0,0,0,0]
+WhittleLikelihoodInference.upperbounds(::Type{GJS_BWG_HNE_DL{K,H}}) where {K,H} = [Inf,Inf,Inf,Inf,Inf,Inf,Inf,Inf,Inf,Inf]
 
 @propagate_inbounds @fastmath function WhittleLikelihoodInference.add_sdf!(out, model::GJS_BWG_HNE_DL{K,H}, ω::Real) where {K,H}
     @boundscheck checkbounds(out,1:6)
