@@ -3,5 +3,5 @@ Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
 OceanWaveSpectralFitting = "a44e4c57-a566-426a-9563-b0c20c24dda1"
 
 [compat]
-OceanWaveSpectralFitting = "0.2.3"
+OceanWaveSpectralFitting = "0.3.0"
 julia = "1.7"
