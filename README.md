@@ -8,7 +8,7 @@ A julia package for fitting parametric spectral wave models to recorded time ser
 
 Includes the following models:
 - **JONSWAP**: the JONSWAP spectra for vertical displacement,
-- **JS\_BWG\_HNE**: a model for the heave, northwards and eastwards displacement of a partical on the water surface when the waves have a JONSWAP marginal spectral density function and bimodal wrapped Gaussian spreading function.
+- **JS\_BWG\_HNE**: a model for the heave, northwards and eastwards displacement of a particle on the water surface when the waves have a JONSWAP marginal spectral density function and bimodal wrapped Gaussian spreading function.
 - **JS\_BWG\_HNE\_DL**: a depth limited version of **JS\_BWG\_HNE**.
 - **JS\_WG\_HNE\_DL**: similar to **JS\_BWG\_HNE\_DL** but with a single wrapped Gaussian spreading function (designed for swell modelling).
 
