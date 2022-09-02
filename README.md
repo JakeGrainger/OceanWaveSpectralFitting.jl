@@ -5,7 +5,7 @@
 [![Coverage](https://codecov.io/gh/JakeGrainger/OceanWaveSpectralFitting.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/JakeGrainger/OceanWaveSpectralFitting.jl)
 [![DOI](https://zenodo.org/badge/438336110.svg)](https://zenodo.org/badge/latestdoi/438336110)
 
-A julia package for fitting parametric spectral wave models to recorded time series using Whittle and debiased Whittle likelihood inference. This package extends the functionality of [*WhittleLikelihoodInference.jl*](https://github.com/JakeGrainger/WhittleLikelihoodInference.jl) to include models for ocean waves.
+A Julia package for fitting parametric spectral wave models to recorded time series using Whittle and debiased Whittle likelihood inference. This package extends the functionality of [*WhittleLikelihoodInference.jl*](https://github.com/JakeGrainger/WhittleLikelihoodInference.jl) to include models for ocean waves.
 
 Includes the following models:
 - **JONSWAP**: the JONSWAP spectra for vertical displacement,
