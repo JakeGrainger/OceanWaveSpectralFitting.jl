@@ -21,7 +21,7 @@ In particular, a `JONSWAP{K}` model for a series recorded every `Δ` seconds wou
 # Background
 The JONSWAP spectral density function is 
 ```math
-f(ω) = αω^{-r}\exp\left \{-\frac{r}{4}\left(\frac{|ω|}{ωₚ}\right)^{-4}\right \}γ^{δ(|ω|)}
+f(ω) = \frac{1}{2}αω^{-r}\exp\left \{-\frac{r}{4}\left(\frac{|ω|}{ωₚ}\right)^{-4}\right \}γ^{δ(|ω|)}
 ```
 where
 ```math
