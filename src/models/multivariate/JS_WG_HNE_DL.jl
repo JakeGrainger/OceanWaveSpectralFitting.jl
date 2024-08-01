@@ -31,7 +31,7 @@ where ``f(ω)`` is the marginal spectral density function and ``D(ω,ϕ)`` is th
 This model uses a JONSWAP marginal sdf and a bimodal wrapped Gaussian spreading function.
 The JONSWAP spectral density function is 
 ```math
-f(ω) = αω^{-r}\exp\left \{-\frac{r}{4}\left(\frac{|ω|}{ωₚ}\right)^{-4}\right \}γ^{δ(|ω|)}
+f(ω) = \frac{1}{2}αω^{-r}\exp\left \{-\frac{r}{4}\left(\frac{|ω|}{ωₚ}\right)^{-4}\right \}γ^{δ(|ω|)}
 ```
 where
 ```math
